@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getFoodList } from "../assets/assets1";
+// import { getFoodList } from "../assets/assets1";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -7,6 +7,8 @@ export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
     const [food_list, setFoodList] = useState([]);
+
+    const [isLogged, setIsLogged] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,7 +64,9 @@ const StoreContextProvider = (props) => {
         setCartItems,
         addToCart,
         removeFromCart,
-        getTotalCartAmount
+        getTotalCartAmount,
+        isLogged,
+        setIsLogged
     }
     return (
         < StoreContext.Provider value={contextValue} >

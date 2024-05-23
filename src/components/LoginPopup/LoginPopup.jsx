@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './LoginPopup.css';
 import { assets } from '../../assets/assets';
 import axios from 'axios';
+import { StoreContext } from '../../context/StoreContext';
 const LoginPopup = ({ setShowLogin }) => {
 
+    const { isLogged, setIsLogged} = useContext(StoreContext);
+  
     const [currState, setCurrState] = useState("Login");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isLogged, setIsLogged] = useState(false);
+    // const [isLogged, setIsLogged] = useState(false);
     const handleLogin = async (e) => {
         e.preventDefault();
         console.log(isLogged);

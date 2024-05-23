@@ -8,7 +8,11 @@ const Navbar = ({setShowLogin}) => {
 
     const [menu, setMenu] = useState("menu");
 
-    const { getTotalCartAmount } = useContext(StoreContext);
+    const { getTotalCartAmount, isLogged } = useContext(StoreContext);
+
+    () => {
+        console.log(isLogged);
+    }
 
     return (
         <div className='navbar'>
