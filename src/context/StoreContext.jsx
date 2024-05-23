@@ -1,9 +1,19 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list } from "../assets/assets";
+import { getFoodList } from "../assets/assets1";
 
 export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
+    const [food_list, setFoodList] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getFoodList();
+            setFoodList(data);
+        };
+
+        fetchData();
+    }, []);
 
     const [cartItems, setCartItems] = useState({});
 

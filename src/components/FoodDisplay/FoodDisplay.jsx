@@ -5,6 +5,10 @@ import FoodItem from '../FoodItem/FoodItem'
 const FoodDisplay = ({ category }) => {
 
     const { food_list } = useContext(StoreContext)
+    
+    if (!Array.isArray(food_list)) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className='food-display' id='food-display'>
