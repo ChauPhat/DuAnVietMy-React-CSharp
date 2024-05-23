@@ -120,21 +120,21 @@ export const menu_list = [
 
 export const getFoodList = async () => {
     await axios.get("http://localhost:5201/api/Product")
-    .then(response => {
-        Swal.fire({
-            text: 'Succeed',
-            icon: 'success'
-          })
-          console.dir(response.data);
-        return response.data;
-    })
-    .catch(error => {
-        Swal.fire({
-            text: error,
-            icon: 'error'
+        .then(response => {
+            console.dir(response.data);
+            Swal.fire({
+                text: 'Succeed!',
+                icon: 'success'
+            });
+            return response.data;
         })
-        return [];
-    })
+        .catch(error => {
+            Swal.fire({
+                text: error,
+                icon: 'error'
+            });
+            return [];
+        })
 }
 
 export const food_list = null;
