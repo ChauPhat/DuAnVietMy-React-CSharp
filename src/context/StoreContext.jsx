@@ -1,39 +1,22 @@
-import { createContext, useEffect, useState } from "react";
-// import { getFoodList } from "../assets/assets1";
-import Swal from "sweetalert2";
 import axios from "axios";
-
+import { createContext, useEffect, useState } from "react";
 export const StoreContext = createContext(null)
-
 const StoreContextProvider = (props) => {
     const [food_list, setFoodList] = useState([]);
-
     const [isLogged, setIsLogged] = useState(false);
-
     useEffect(() => {
         const fetchData = async () => {
             await axios.get("http://localhost:5201/api/Product")
                 .then(response => {
-                    console.dir(response.data);
-                    Swal.fire({
-                        text: 'Succeed!',
-                        icon: 'success'
-                    });
                     setFoodList(response.data);
                 })
-                .catch(error => {
-                    Swal.fire({
-                        text: error,
-                        icon: 'error'
-                    });
-                    setFoodList([]);
-                })
+                .catch(
+                    setFoodList([])
+                )
         };
         fetchData();
     }, []);
-
     const [cartItems, setCartItems] = useState({});
-
     const addToCart = (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
@@ -42,11 +25,9 @@ const StoreContextProvider = (props) => {
             setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
         }
     }
-
     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }))
     }
-
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
@@ -57,7 +38,6 @@ const StoreContextProvider = (props) => {
         }
         return totalAmount;
     }
-
     const contextValue = {
         food_list,
         cartItems,
@@ -73,7 +53,5 @@ const StoreContextProvider = (props) => {
             {props.children}
         </StoreContext.Provider >
     )
-
 }
-
 export default StoreContextProvider
