@@ -24,14 +24,20 @@ const LoginPopup = ({ setShowLogin }) => {
                     password: password
                 });
                 const responseData = response.data;
-                setMessage(responseData.message);
-                //   alert(message);
+                let isSucceed = responseData.message === "Save account success";
+                Swal.fire({
+                    title: responseData.message,
+                    icon: isSucceed ? 'success' : 'error'
+                });
+                
             } catch (error) {
-                console.error('Error saving account:', error);
-                setMessage('Lỗi khi lưu tài khoản');
+                console.error('Lỗi khi gọi API:', error);
+                Swal.fire({
+                    text: 'An error occurs during api call',
+                    icon: 'error'
+                });
             }
         } else {
-
             const payload = {
                 name: "",
                 email: email,
@@ -57,12 +63,8 @@ const LoginPopup = ({ setShowLogin }) => {
                     icon: 'error'
                 });
             }
-
         }
     };
-    const check = () => {
-        setMessage('');
-    }
     return (
         <div className='login-popup'>
             <form className="login-popup-container" onSubmit={handleLogin}>
